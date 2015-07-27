@@ -13,7 +13,7 @@
   u.name = Faker::Internet.user_name
   u.save
   rand(2..5).times do
-    u.posts.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph(10))
+    u.authored_posts.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph(10))
   end
 end
 
@@ -27,10 +27,10 @@ end
 Post.all.each do |p|
   tag_holder = Tag.all.sample(rand(1..4))
   tag_holder.each do |t|
-    p.tags << t
+    p.tags_on_authored_posts << t
   end
   rand(0..5).times do 
-    p.comments.create(body: Faker::Lorem.sentence, user_id: rand(1..10))
+    p.child_comments.create(body: Faker::Lorem.sentence, user_id: rand(1..10))
   end 
 end
 
