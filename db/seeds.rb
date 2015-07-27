@@ -17,19 +17,20 @@
   end
 end
 
-tags = Faker::Lorem.words(4)
+tags_array = Faker::Lorem.words(4)
 
-tags.each do |tag|
-  Tag.create(name: tag)
+tags_array.each do |el|
+  Tag.create(name: el)
+  p el
 end
 
 Post.all.each do |p|
-  tag_holder = tags.sample(rand(1..4))
-  tag_holder.each do |tag|
-    p.tags.id = 
+  tag_holder = Tag.all.sample(rand(1..4))
+  tag_holder.each do |t|
+    p.tags << t
   end
   rand(0..5).times do 
-    p.comments.create(body: Faker::Lorem.sentence)
+    p.comments.create(body: Faker::Lorem.sentence, user_id: rand(1..10))
   end 
 end
 
