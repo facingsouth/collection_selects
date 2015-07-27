@@ -8,16 +8,28 @@
 
 
 
-100.times do
-  p = Post.new
-  p.title = Faker::Lorem.sentence
-  p.body = Faker::Lorem.paragraph(10)
-  p.save
-end
-
-
 10.times do
   u = User.new
   u.name = Faker::Internet.user_name
   u.save
+  rand(2..5).times do
+    u.posts.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph(10))
+  end
 end
+
+tags = Faker::Lorem.words(4)
+
+tags.each do |tag|
+  Tag.create(name: tag)
+end
+
+Post.all.each do |p|
+  tag_holder = tags.sample(rand(1..4))
+  tag_holder.each do |tag|
+    p.tags.id = 
+  end
+  rand(0..5).times do 
+    p.comments.create(body: Faker::Lorem.sentence)
+  end 
+end
+
