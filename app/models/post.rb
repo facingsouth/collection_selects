@@ -6,5 +6,4 @@ class Post < ActiveRecord::Base
   has_many :child_comments, 
            :class_name => "Comment" , 
            :dependent => :destroy
-  has_many :tag_ids , :through => :post_taggings, :source => :tag
 end
