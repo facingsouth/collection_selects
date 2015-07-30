@@ -1,0 +1,16 @@
+  <%= post_form.fields_for :comments do |comment_on_post| %>
+    <%= comment_on_post.label :body %>
+    <%= comment_on_post.text_area :body %>
+    <br>
+    <%= comment_on_post.collection_select(:user_id,
+                                          User.all,
+                                          :id,
+                                          :name,
+                                          {include_blank: 'None'} )%>
+    <br>
+    <% if comment_on_post.object.persisted? %>
+      <%= comment_on_post.label :_destroy, "Delete this comment?" %>
+      <%= comment_on_post.check_box :_destroy %>
+    <% end %>
+    <hr>
+  <% end %>

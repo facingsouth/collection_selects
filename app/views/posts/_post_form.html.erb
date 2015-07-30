@@ -1,0 +1,35 @@
+<%= form_for post do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br>
+  <%= f.label :body %>
+  <%= f.text_area :body %>
+  <br>
+  <%= f.label :author_ids %>
+  <%= f.collection_select(:author_ids,
+                          User.all,
+                          :id,
+                          :name,
+                          {include_blank: 'None'},
+                          {multiple: true}) %>
+  <br>
+  <%= f.label :tag_id %>
+  <br>
+  <%= f.collection_check_boxes(  
+                        :tags_on_authored_post_ids, 
+                        Tag.all, 
+                        :id, 
+                        :name
+                         ) %>
+  <br>
+
+  <div class="push-content"></div>
+  <% if post.persisted? %>
+    <h3>Edit Comment:</h3>
+  <% else %>
+    <h3>New Comment:</h3>
+  <% end %>
+  <%= render partial: 'comment_form', locals: {post_form: f} %>
+  <%= f.submit %>
+
+<% end %>
